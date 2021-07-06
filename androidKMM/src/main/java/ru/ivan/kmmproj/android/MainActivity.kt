@@ -36,8 +36,8 @@ class MainActivity : ComponentActivity() {
 
         EngineSDK.engine.greeting()
         GlobalScope.launch {
-            var result = EngineSDK.hubble.hubbleRepository.fetchNews()
-            Log.e("TAG", "Result -> ${result.count()}")
+//            var result = EngineSDK.hubble.hubbleRepository.fetchNews()
+//            Log.e("TAG", "Result -> ${result.count()}")
         }
 
     }
