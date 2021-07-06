@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
 }
 
-val compose_version = "1.0.0-beta08"
+val compose_version = "1.0.0-rc01"
 
 dependencies {
     implementation(project(":shared"))
@@ -53,11 +53,22 @@ android {
             isMinifyEnabled = false
         }
     }
-//    buildFeatures {
-//        compose = true
-//    }
-//    composeOptions {
-//        kotlinCompilerExtensionVersion = compose_version
-//    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = compose_version
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        useIR = true
+    }
 }
 
