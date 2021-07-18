@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.ui.platform.ComposeView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ru.ivan.composeapplication.ui.theme.ComposeApplicationTheme
@@ -16,6 +15,7 @@ import ru.ivan.kmmproj.di.Configuration
 import ru.ivan.kmmproj.di.EngineSDK
 import ru.ivan.kmmproj.di.PlatformType
 import ru.ivan.kmmproj.di.modules.engine
+import ru.ivan.kmmproj.dsl.*
 import ru.ivan.kmmproj.features.hubble.hubble
 
 
@@ -32,14 +32,40 @@ class MainActivity : ComponentActivity() {
         }
 
         EngineSDK.init(configuration = Configuration(platformType = PlatformType.Android("1.0", "1")))
-
-
         EngineSDK.engine.greeting()
-        GlobalScope.launch {
-//            var result = EngineSDK.hubble.hubbleRepository.fetchNews()
-//            Log.e("TAG", "Result -> ${result.count()}")
-        }
 
+
+
+        // DSL - Генерация статьи
+        compileArticle(page {
+            number = 1
+            pageBlocks {
+                headerBlock("Header text")
+                mainBlock("Main text")
+                endBlock("End text")
+            }
+        })
+
+
+        // Вызов API
+        /*
+        GlobalScope.launch {
+        var result = EngineSDK.hubble.hubbleRepository.fetchNews()
+        Log.e("TAG", "Result -> ${result.count()}")
+        }
+         */
+
+
+    }
+}
+
+
+
+
+
+fun compileArticle(page: Page) {
+    page.pageBlocks?.forEach {
+        Log.e("TAG", "Type -> ${it.type}, Content -> ${it.content}")
     }
 }
 
